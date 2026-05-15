@@ -1,8 +1,8 @@
-"""Mintbot agent-template whitelist contract.
+"""mintbot agent-template whitelist contract.
 
 Only files listed in ALLOWED_PATTERNS may exist in the repo (excluding
 the `.git/` directory and the `tests/` folder itself). This keeps the
-deploy surface tiny and predictable — Mintbot copies the matching
+deploy surface tiny and predictable — mintbot copies the matching
 files into your agent at deploy time and rejects anything else.
 
 Run with: pytest tests/test_whitelist.py
@@ -61,7 +61,7 @@ def test_no_unknown_files(repo_root: Path) -> None:
             unknown.append(rel)
     assert not unknown, (
         "These files are not in the allowed whitelist and will be rejected "
-        "by Mintbot at deploy time:\n  " + "\n  ".join(sorted(unknown))
+        "by mintbot at deploy time:\n  " + "\n  ".join(sorted(unknown))
     )
 
 

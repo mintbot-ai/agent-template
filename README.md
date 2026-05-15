@@ -1,10 +1,10 @@
 # mintbot-ai / agent-template
 
-> Your Mintbot agent's look and feel — fork, customise, deploy via MintOffice.
+> Your mintbot agent's look and feel — fork, customise, deploy via MintOffice.
 
-This is the **starting point** for theming a Mintbot agent panel.
+This is the **starting point** for theming a mintbot agent panel.
 Fork it, edit a couple of CSS variables, drop the public URL of your
-fork into MintOffice, and Mintbot will pull your theme onto your
+fork into MintOffice, and mintbot will pull your theme onto your
 agent the next time it deploys.
 
 ```
@@ -34,12 +34,12 @@ agent the next time it deploys.
 | `preview/index.html` | Local preview of how the panel looks.               | Editable |
 
 **Do not** add server-side code, binaries, large media files, or files
-outside the whitelist — Mintbot will reject the deploy. See
+outside the whitelist — mintbot will reject the deploy. See
 `tests/test_whitelist.py` for the exact allow-list.
 
 ## What runs at deploy time
 
-When you (re)deploy your agent through MintOffice, Mintbot:
+When you (re)deploy your agent through MintOffice, mintbot:
 
 1. `git pull`s your fork at `main`.
 2. Runs every test in `tests/` — must pass.
@@ -60,7 +60,7 @@ by a bad push to the template repo.
 
 ## Versioning
 
-Mintbot tracks your fork's `main` branch. Every push to `main` becomes
+mintbot tracks your fork's `main` branch. Every push to `main` becomes
 the new template for your agent at next deploy. There is no "publish"
 step — `main` *is* what's live, so keep it green.
 

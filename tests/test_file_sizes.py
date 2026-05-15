@@ -1,6 +1,6 @@
 """Enforce per-file size budgets.
 
-A bloated theme makes the panel slow to load. Mintbot enforces the same
+A bloated theme makes the panel slow to load. mintbot enforces the same
 limits at deploy time — keep them in sync if you change the numbers.
 """
 from __future__ import annotations

@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────────────────────────────
  * theme.css — your agent's look and feel.
  *
- * This file is loaded AFTER the base Mintbot panel CSS, so any CSS
+ * This file is loaded AFTER the base mintbot panel CSS, so any CSS
  * variable you redefine here wins. The base panel uses CSS custom
  * properties for almost everything — try the variables below first
  * before adding bespoke rules.

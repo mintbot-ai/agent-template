@@ -11,7 +11,7 @@
  *   - No legacy document.write-style mutation.
  *   - File size kept under 32 KB.
  *
- * The base panel exposes a small global named `Mintbot` with a few hooks.
+ * The base panel exposes a small global named `mintbot` with a few hooks.
  * The contract is intentionally tiny so we can keep it stable.
  * ────────────────────────────────────────────────────────────────── */
 
@@ -19,11 +19,11 @@
   'use strict';
 
   // Wait for the panel to finish bootstrapping before we touch anything.
-  if (!window.Mintbot || !window.Mintbot.onReady) {
+  if (!window.mintbot || !window.mintbot.onReady) {
     return;
   }
 
-  window.Mintbot.onReady(() => {
+  window.mintbot.onReady(() => {
     // Example: change the welcome message shown above the first chat input.
     // Remove or edit as needed.
     //

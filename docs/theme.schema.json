@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/mintbot-ai/agent-template/main/docs/theme.schema.json",
-  "title": "Mintbot agent theme manifest",
+  "title": "mintbot agent theme manifest",
   "type": "object",
   "required": ["name", "version", "author", "description", "entry"],
   "additionalProperties": false,

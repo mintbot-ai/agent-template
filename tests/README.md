@@ -1,9 +1,9 @@
 # Template tests
 
-These tests enforce the Mintbot **whitelist contract** — the set of rules
-your fork must satisfy before Mintbot will deploy your theme onto an
+These tests enforce the mintbot **whitelist contract** — the set of rules
+your fork must satisfy before mintbot will deploy your theme onto an
 agent panel. They run automatically in GitHub Actions on every push,
-and Mintbot **also runs the same checks** at deploy time, so a green
+and mintbot **also runs the same checks** at deploy time, so a green
 CI badge is your confidence that your fork is deployable.
 
 ## What each test does
@@ -34,9 +34,9 @@ You should see something like:
 
 ## "But I want to relax a rule!"
 
-You can't — these tests come from Mintbot, not from you. The same
+You can't — these tests come from mintbot, not from you. The same
 checks run at deploy time, so loosening them in your fork would just
-mean your CI passes but Mintbot rejects the build.
+mean your CI passes but mintbot rejects the build.
 
 If you genuinely need a new exception (e.g. a vetted external font CDN),
 open an issue at `github.com/mintbot-ai/agent-template/issues` so we

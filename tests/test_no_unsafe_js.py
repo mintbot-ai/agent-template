@@ -1,6 +1,6 @@
 """Reject obviously dangerous JavaScript patterns in theme.js.
 
-This is a STATIC sanity check, not a full sandbox — Mintbot does
+This is a STATIC sanity check, not a full sandbox — mintbot does
 additional checks at deploy time. The goal here is to catch common
 mistakes early in CI.
 """
