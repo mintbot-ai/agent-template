@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent panel preview</title>
+
+  <!-- Local copy of the Mintbot base styles (last synced 2026-05-16).
+       Keep this file untouched; edits belong in ../theme/theme.css. -->
+  <link rel="stylesheet" href="base.css">
+
+  <!-- Your customisations. Loaded AFTER base.css so your overrides win. -->
+  <link rel="stylesheet" href="../theme/theme.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">My Agent</div>
+    <nav class="pills">
+      <button class="pill active">Chat</button>
+      <button class="pill">Files</button>
+      <button class="pill">Settings</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="section-title">Sessions</div>
+      <ul class="session-list">
+        <li class="session active">Today — 15:42</li>
+        <li class="session">Yesterday — 09:11</li>
+        <li class="session">2026-05-14</li>
+      </ul>
+    </aside>
+
+    <section class="chat">
+      <div class="chat-stream">
+        <div class="chat-bubble user">Hi, can you summarise the latest order?</div>
+        <div class="chat-bubble assistant">
+          Sure — order #142 was paid 12 minutes ago, eu-2gb tier, fulfilment is in progress.
+        </div>
+        <div class="chat-bubble user">Great. Anything I need to do?</div>
+        <div class="chat-bubble assistant">
+          Nothing for now. I'll ping you when the VPS comes online.
+        </div>
+      </div>
+
+      <form class="composer" onsubmit="event.preventDefault()">
+        <input type="text" placeholder="Type a message…" data-welcome>
+        <button type="submit" class="primary">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="../theme/theme.js"></script>
+</body>
+</html>

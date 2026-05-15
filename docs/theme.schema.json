@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/mintbot-ai/agent-template/main/docs/theme.schema.json",
+  "title": "Mintbot agent theme manifest",
+  "type": "object",
+  "required": ["name", "version", "author", "description", "entry"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema":     { "type": "string", "format": "uri" },
+    "name":        { "type": "string", "minLength": 1, "maxLength": 60 },
+    "version":     { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(?:[-+][\\w.\\-]+)?$" },
+    "author":      { "type": "string", "minLength": 1, "maxLength": 120 },
+    "description": { "type": "string", "minLength": 1, "maxLength": 280 },
+    "homepage":    { "type": "string", "format": "uri" },
+    "license":     { "type": "string", "maxLength": 40 },
+    "preview":     { "type": "string" },
+    "entry": {
+      "type": "object",
+      "required": ["css"],
+      "additionalProperties": false,
+      "properties": {
+        "css": { "type": "string" },
+        "js":  { "type": "string" }
+      }
+    }
+  }
+}

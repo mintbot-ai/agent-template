@@ -1,0 +1,53 @@
+/* ─────────────────────────────────────────────────────────────────────
+ * theme.css — your agent's look and feel.
+ *
+ * This file is loaded AFTER the base Mintbot panel CSS, so any CSS
+ * variable you redefine here wins. The base panel uses CSS custom
+ * properties for almost everything — try the variables below first
+ * before adding bespoke rules.
+ *
+ * Whitelist (enforced by tests/ and at deploy time):
+ *   - No @import of external URLs (http:// or https://).
+ *   - No url() pointing to off-site hosts.
+ *   - File size kept under 64 KB.
+ * ────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Brand colors ──────────────────────────────────────────────── */
+  --accent:        #17dc94;             /* primary brand color    */
+  --accent-dim:    #0fa866;             /* darker for hover/active */
+  --accent-soft:   rgba(23, 220, 148, .12);
+  --accent-softer: rgba(23, 220, 148, .06);
+
+  /* ── Background ────────────────────────────────────────────────── */
+  --bg:   #0b0e10;
+  --bg2:  #13181b;
+  --bg3:  #1a1f22;
+  --card: #151a1d;
+
+  /* ── Text ──────────────────────────────────────────────────────── */
+  --text:   #e8eaf0;
+  --muted:  #7a8690;
+  --muted2: #545d66;
+
+  /* ── Geometry ──────────────────────────────────────────────────── */
+  --radius:    12px;
+  --radius-sm: 8px;
+}
+
+/* ── Extra customisation examples ──────────────────────────────────
+ * Uncomment + edit any of these to tweak the panel beyond colors.
+ * Keep selectors scoped to the panel — don't break global resets.
+ * ─────────────────────────────────────────────────────────────── */
+
+/*
+.topbar .brand {
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+.chat-bubble.assistant {
+  background: var(--accent-softer);
+  border-color: var(--accent-soft);
+}
+*/

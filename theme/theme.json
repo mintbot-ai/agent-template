@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/mintbot-ai/agent-template/main/docs/theme.schema.json",
+  "name": "My Agent",
+  "version": "1.0.0",
+  "author": "Your Name",
+  "description": "A short, one-line description of this agent's look.",
+  "homepage": "https://example.com",
+  "license": "MIT",
+  "preview": "preview/index.html",
+  "entry": {
+    "css": "theme/theme.css",
+    "js":  "theme/theme.js"
+  }
+}
