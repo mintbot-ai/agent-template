@@ -1,9 +1,9 @@
 /* ─────────────────────────────────────────────────────────────────────
- * preview/base.css — minimal copy of the mintbot panel base styles for
- * LOCAL PREVIEW ONLY. The real agent uses the full base.css served by
- * mintbot.ai. This file exists so you can open preview/index.html in a
- * browser and see roughly how your theme.css will look without having
- * to deploy.
+ * preview/base.css — minimal copy of the base panel styles for LOCAL
+ * PREVIEW ONLY. The real white-label agent loads the full base.css
+ * served by its own panel host. This file exists so you can open
+ * preview/index.html in a browser and see roughly how your theme.css
+ * will look without having to deploy.
  *
  * Keep variable names in sync with theme/theme.css.
  * ────────────────────────────────────────────────────────────────── */

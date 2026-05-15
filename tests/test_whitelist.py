@@ -1,4 +1,4 @@
-"""mintbot agent-template whitelist contract.
+"""agent-template whitelist contract.
 
 Only files listed in ALLOWED_PATTERNS may exist in the repo (excluding
 the `.git/` directory and the `tests/` folder itself). This keeps the

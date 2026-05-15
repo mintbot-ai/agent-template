@@ -1,6 +1,6 @@
 # Customising your theme
 
-The mintbot agent panel is driven almost entirely by CSS custom
+Your white-label agent panel is driven almost entirely by CSS custom
 properties (variables) under `:root`. Redefining a variable in
 `theme/theme.css` is enough to recolour, re-shape, or re-typeface the
 whole panel. Bespoke CSS rules are allowed, but try the variables

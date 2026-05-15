@@ -1,7 +1,8 @@
 # Publishing your fork
 
 Once your theme looks right in `preview/index.html` and `pytest -q`
-passes locally, here's how to ship it to your real mintbot agent.
+passes locally, here's how to ship it to your real white-label agent
+via [MintOffice](https://mint.mintbot.ai/).
 
 ## 1. Push to GitHub
 
@@ -18,10 +19,10 @@ mintbot will refuse the deploy with the same error.
 
 ## 2. Paste the URL into MintOffice
 
-Open your MintOffice dashboard:
+Open your [MintOffice](https://mint.mintbot.ai/) dashboard:
 
-- `https://mint.mintbot.ai/` (production)
-- `https://mint.mintbot.dev/` (testing)
+- [`https://mint.mintbot.ai/`](https://mint.mintbot.ai/) (production)
+- [`https://mint.mintbot.dev/`](https://mint.mintbot.dev/) (testing)
 
 In **Settings → Template**, paste your repo URL. Both forms work:
 
