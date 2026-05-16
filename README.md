@@ -31,6 +31,7 @@ agent the next time it deploys.
 | `theme/theme.css` | CSS variables + custom rules — the bulk of your theme. | Yes |
 | `theme/theme.json`| Metadata (name, version, author, entry paths).         | Yes |
 | `theme/theme.js`  | Small JS hooks. Leave the file empty if not needed.    | Optional |
+| `persona/brand_layer.md` | Your brand's voice and tone — appended on top of mintbot's default agent persona. | Optional |
 | `preview/index.html` | Local preview of how the panel looks.               | Editable |
 
 **Do not** add server-side code, binaries, large media files, or files

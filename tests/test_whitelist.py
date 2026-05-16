@@ -21,6 +21,7 @@ ALLOWED_PATTERNS: tuple[str, ...] = (
     "theme/theme.css",
     "theme/theme.js",
     "theme/theme.json",
+    "persona/brand_layer.md",
     "preview/index.html",
     "preview/base.css",
     "preview/README.md",

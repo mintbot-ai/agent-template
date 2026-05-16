@@ -15,6 +15,7 @@ CI badge is your confidence that your fork is deployable.
 | `test_no_unsafe_js.py`      | `theme.js` does not use `eval`, `innerHTML`, dynamic `<script>` etc. |
 | `test_theme_json.py`        | `theme.json` is valid, has required fields, version is semver, `entry` paths exist. |
 | `test_file_sizes.py`        | Per-file size budgets are respected. |
+| `test_persona.py`           | `persona/brand_layer.md` has no role-changing tokens, no HTML comments, valid UTF-8. |
 
 ## Running locally
 

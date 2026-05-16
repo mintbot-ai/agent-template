@@ -87,3 +87,39 @@ resets (`*`, `body`) can break the rest of the panel.
 If you need a font that isn't already loaded by the base panel, ship
 it as a `data:` URI inside `theme.css`. Keep the resulting file under
 the size budget in `tests/test_file_sizes.py`.
+
+## Brand voice (`persona/brand_layer.md`)
+
+The visual theme above changes how the agent **looks**. To change how
+the agent **talks**, drop a short markdown file at
+`persona/brand_layer.md`. mintbot appends it to the agent's persona on
+every turn, on top of its built-in capabilities and safety baseline.
+
+```
+┌─ mintbot baseline ───┐
+│ Environment header   │  (your agent's URL, the Telegram bot, etc.)
+│ Capabilities         │  (what the agent can do — tools, panel, etc.)
+│ Default persona      │  (mintbot's neutral assistant persona)
+├──────────────────────┤
+│ YOUR brand layer  ◄──┤  (persona/brand_layer.md — appended last)
+└──────────────────────┘
+```
+
+Keep it small and high-signal — 4 KB is plenty, 8 KB is the hard cap
+(see `tests/test_file_sizes.py`). Long persona files dilute rather
+than strengthen the voice.
+
+**Hard rules** (`tests/test_persona.py` enforces these — your CI will
+fail if you violate them):
+
+- No role-changing tokens: `<|system|>`, `[INST]`, `<<SYS>>`,
+  `### System:`, etc. mintbot already owns the system role.
+- No HTML comments (`<!-- ... -->`). The brand layer must be auditable
+  in plain markdown — no hidden instructions allowed.
+- No lines that start with `system:`, `user:`, or `assistant:` —
+  these look like chat-completion role headers to many LLMs.
+- UTF-8 plain text only. No BOM.
+
+Inside those rules, write what you want. A typical brand layer covers
+voice & tone, what your brand cares about, and a short list of things
+to avoid. See the starter `persona/brand_layer.md` in the template.

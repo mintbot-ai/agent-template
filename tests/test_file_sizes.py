@@ -12,6 +12,10 @@ SIZE_BUDGETS: tuple[tuple[str, int], ...] = (
     ("theme/theme.css", 64),
     ("theme/theme.js",  32),
     ("theme/theme.json", 8),
+    # Persona overlay is injected into SOUL.md on every turn — keep it
+    # tight so it doesn't push capabilities/persona past Hermes's context
+    # file truncation budget (~14 KB head + 4 KB tail).
+    ("persona/brand_layer.md", 8),
 )
 
 
