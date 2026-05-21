@@ -15,7 +15,7 @@ CI badge is your confidence that your fork is deployable.
 | `test_no_unsafe_js.py`      | `theme.js` does not use `eval`, `innerHTML`, dynamic `<script>` etc. |
 | `test_theme_json.py`        | `theme.json` is valid, has required fields, version is semver, `entry` paths exist. |
 | `test_file_sizes.py`        | Per-file size budgets are respected. |
-| `test_persona.py`           | `persona/brand_layer.md` has no role-changing tokens, no HTML comments, valid UTF-8. |
+| `test_persona.py`           | Both `persona/system_prompt.md.j2` and `persona/brand_layer.md` are free of role-changing tokens, HTML comments, and UTF-8 BOMs; the `.j2` also renders cleanly against the deploy-time Jinja context. |
 
 ## Running locally
 

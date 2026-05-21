@@ -16,6 +16,10 @@ SIZE_BUDGETS: tuple[tuple[str, int], ...] = (
     # tight so it doesn't push capabilities/persona past Hermes's context
     # file truncation budget (~14 KB head + 4 KB tail).
     ("persona/brand_layer.md", 8),
+    # Full brand persona replacement. Bigger budget because it carries
+    # the whole agent persona section (the bundled mintbot persona is
+    # ~4.5 KB; partners may want more depth on voice/policy/upgrade flow).
+    ("persona/system_prompt.md.j2", 48),
 )
 
 

@@ -20,9 +20,10 @@ agent the next time it deploys.
 2. Open `theme/theme.css` and change the colours under `:root`.
 3. Open `theme/theme.json` and set `name`, `author`, `description`.
 4. (Optional) Open `theme/theme.js` to add tiny behavioural tweaks.
-5. Open `preview/index.html` in your browser to see the result.
-6. `git push` to your public GitHub repo — CI must be green.
-7. Paste the repo URL into your [MintOffice](https://mint.mintbot.ai/) onboarding form.
+5. Open `persona/system_prompt.md.j2` and search-replace `AcmeAI` for your brand name (and skim the rest — it's a full working persona).
+6. Open `preview/index.html` in your browser to see the result.
+7. `git push` to your public GitHub repo — CI must be green.
+8. Paste the repo URL into your [MintOffice](https://mint.mintbot.ai/) onboarding form.
 
 ## What you can change
 
@@ -31,8 +32,23 @@ agent the next time it deploys.
 | `theme/theme.css` | CSS variables + custom rules — the bulk of your theme. | Yes |
 | `theme/theme.json`| Metadata (name, version, author, entry paths).         | Yes |
 | `theme/theme.js`  | Small JS hooks. Leave the file empty if not needed.    | Optional |
-| `persona/brand_layer.md` | Your brand's voice and tone — appended on top of mintbot's default agent persona. | Optional |
+| `persona/system_prompt.md.j2` | **Full** brand persona Jinja template — replaces the bundled mintbot agent persona end-to-end (brand name, service policy, upgrade flow, …). The shipped file is a working AcmeAI example — search-and-replace for your brand. | Optional but recommended |
+| `persona/brand_layer.md` | **Short** voice & tone overlay appended at the very end of the prompt. Use this if `system_prompt.md.j2` already carries your brand and you only want to nudge tone. | Optional |
 | `preview/index.html` | Local preview of how the panel looks.               | Editable |
+
+### Two persona files — when to use which
+
+- **Want full white-label** (no "mintbot" leaking into your agent's voice)? Edit `persona/system_prompt.md.j2`. It replaces the bundled persona completely. The shipped example uses **AcmeAI** as the brand — search-and-replace, push, deploy.
+- **Want just a tone overlay** (keep the upstream persona but add a brand voice)? Edit `persona/brand_layer.md`. It's appended at the end of the rendered prompt.
+- **Want both?** That works too — `system_prompt.md.j2` is rendered first, then `brand_layer.md` is appended as a final overlay.
+
+Inside `system_prompt.md.j2` you get three Jinja variables at deploy time:
+
+```
+{{ agent_id }}            # int, e.g. 8061
+{{ panel_domain_base }}   # str, your apex (e.g. "acmeai.com")
+{{ bot_handle }}          # str, the Telegram bot handle ("@…")
+```
 
 **Do not** add server-side code, binaries, large media files, or files
 outside the whitelist — mintbot will reject the deploy. See

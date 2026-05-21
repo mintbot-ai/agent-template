@@ -88,26 +88,37 @@ If you need a font that isn't already loaded by the base panel, ship
 it as a `data:` URI inside `theme.css`. Keep the resulting file under
 the size budget in `tests/test_file_sizes.py`.
 
-## Brand voice (`persona/brand_layer.md`)
+## Brand voice — two levels (`persona/`)
 
 The visual theme above changes how the agent **looks**. To change how
-the agent **talks**, drop a short markdown file at
-`persona/brand_layer.md`. mintbot appends it to the agent's persona on
-every turn, on top of its built-in capabilities and safety baseline.
+the agent **talks**, the template offers two complementary files —
+use one or both depending on how much you want to override.
 
 ```
-┌─ mintbot baseline ───┐
-│ Environment header   │  (your agent's URL, the Telegram bot, etc.)
-│ Capabilities         │  (what the agent can do — tools, panel, etc.)
-│ Default persona      │  (mintbot's neutral assistant persona)
-├──────────────────────┤
-│ YOUR brand layer  ◄──┤  (persona/brand_layer.md — appended last)
-└──────────────────────┘
+┌─ mintbot baseline (always) ─────────────────┐
+│ Environment header                          │  agent URL, TG bot, panel URLs
+│ Capabilities                                │  tools, MEDIA marker, browser, …
+├─ Persona section ───────────────────────────┤
+│ persona/system_prompt.md.j2 (if present) ◄──┤  FULL brand persona — replaces
+│   else: mintbot's bundled client persona    │  the bundled mintbot persona
+├─ Tail overlay ──────────────────────────────┤
+│ persona/brand_layer.md (if present)      ◄──┤  short voice & tone overlay
+└─────────────────────────────────────────────┘
 ```
 
-Keep it small and high-signal — 4 KB is plenty, 8 KB is the hard cap
-(see `tests/test_file_sizes.py`). Long persona files dilute rather
-than strengthen the voice.
+**`persona/system_prompt.md.j2` — full persona replacement.** The
+shipped file is a working **AcmeAI** example — search-and-replace
+`AcmeAI` / `Acme` for your brand name, tweak the voice section, push.
+Three Jinja variables are available at render time: `{{ agent_id }}`,
+`{{ panel_domain_base }}`, `{{ bot_handle }}`. Hard cap 48 KB.
+
+**`persona/brand_layer.md` — short tail overlay.** Optional. Use this
+when `system_prompt.md.j2` already carries your brand and you only
+want to nudge tone with a few extra lines. Hard cap 8 KB. Keep it
+small and high-signal — long persona files dilute rather than
+strengthen the voice.
+
+Both files run through the same safety contract below.
 
 **Hard rules** (`tests/test_persona.py` enforces these — your CI will
 fail if you violate them):
@@ -122,4 +133,5 @@ fail if you violate them):
 
 Inside those rules, write what you want. A typical brand layer covers
 voice & tone, what your brand cares about, and a short list of things
-to avoid. See the starter `persona/brand_layer.md` in the template.
+to avoid. See the starter `persona/brand_layer.md` in the template,
+and the fully worked `persona/system_prompt.md.j2` example.

@@ -16,6 +16,9 @@ agent-template/
 │   ├── theme.css         (required)
 │   ├── theme.js          (optional)
 │   └── theme.json        (required)
+├── persona/
+│   ├── system_prompt.md.j2  (optional — full brand persona)
+│   └── brand_layer.md       (optional — short tail overlay)
 ├── preview/
 │   ├── index.html
 │   ├── base.css
@@ -34,9 +37,11 @@ agent-template/
     └── reference.md
 ```
 
-mintbot copies **only** the `theme/` folder onto the agent VPS. Everything
+mintbot copies the `theme/` folder onto the agent VPS, and splices
+the contents of `persona/system_prompt.md.j2` and `persona/brand_layer.md`
+(both optional) into the agent's `SOUL.md` at deploy time. Everything
 else exists so that humans (you, reviewers, CI) can understand and
-validate your fork. They're never served to end users.
+validate your fork — never served to end users.
 
 ## `theme.json` schema
 
@@ -90,6 +95,8 @@ Touching the DOM earlier will race with the panel's own setup.
 | `theme/theme.css`| 64 KB    |
 | `theme/theme.js` | 32 KB    |
 | `theme/theme.json`| 8 KB    |
+| `persona/system_prompt.md.j2`| 48 KB |
+| `persona/brand_layer.md` | 8 KB |
 
 These limits keep agent-panel page-load fast. If you need more,
 open an issue.

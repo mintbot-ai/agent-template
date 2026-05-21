@@ -22,6 +22,7 @@ ALLOWED_PATTERNS: tuple[str, ...] = (
     "theme/theme.js",
     "theme/theme.json",
     "persona/brand_layer.md",
+    "persona/system_prompt.md.j2",
     "preview/index.html",
     "preview/base.css",
     "preview/README.md",
