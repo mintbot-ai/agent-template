@@ -107,8 +107,8 @@ use one or both depending on how much you want to override.
 ```
 
 **`persona/system_prompt.md.j2` — full persona replacement.** The
-shipped file is a working **AcmeAI** example — search-and-replace
-`AcmeAI` / `Acme` for your brand name, tweak the voice section, push.
+shipped file is a working **ExampleAI** example — search-and-replace
+`ExampleAI` / `Example` for your brand name, tweak the voice section, push.
 Three Jinja variables are available at render time: `{{ agent_id }}`,
 `{{ panel_domain_base }}`, `{{ bot_handle }}`. Hard cap 48 KB.
 
