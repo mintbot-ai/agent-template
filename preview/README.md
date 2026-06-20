@@ -26,8 +26,9 @@ xdg-open preview/index.html
 
 - It does not run the real base panel JS — most interactions are
   inert. The point is visual feedback.
-- It does not validate the whitelist or any other deploy gate. Run
-  `pytest -q` for that.
+- It does not run the persona/shell checks (there is no central deploy
+  gate in model A — your `install.sh`/`update.sh` run on your own VPS). Run
+  `pytest -q` for the local sanity checks.
 - It will look slightly different from the live panel in some details —
   the real panel has more components (file picker, modal dialogs etc.)
   that this preview deliberately doesn't include.

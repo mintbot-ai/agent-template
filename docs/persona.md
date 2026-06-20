@@ -54,12 +54,18 @@ Want **no platform persona at all** — your own SOUL end to end? Put it in
 `install.sh` and `update.sh` (uncomment the calls).
 
 This writes `SOUL.base.md` directly (the file the platform normally owns).
-Two placeholders are substituted at apply time:
+The file ships **verbatim** — there is no templating/Jinja render step, so
+whatever you put in `soul.full.md` is exactly what the model sees (don't leave
+editor or `{# … #}` comments in it). The only transformation is a literal
+substitution of two shell-style placeholders at apply time:
 
 ```
-${AGENT_ID}        # e.g. 8061
-${BRAND_DOMAIN}    # e.g. acme.example
+${AGENT_ID}        # e.g. 8061   → the agent's numeric id
+${BRAND_DOMAIN}    # e.g. acme.example → your apex (from CUSTOMIZATION_BRAND_DOMAIN)
 ```
+
+Use `${AGENT_ID}` / `${BRAND_DOMAIN}` (shell form) — NOT `{{ ... }}`. The
+bundled `soul.full.md` already uses them; copy that style.
 
 ### Why it must be in update.sh too
 
