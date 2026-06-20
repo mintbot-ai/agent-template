@@ -55,11 +55,12 @@ persona, seed data, call your own APIs.
 |-------------------------|------------------------------------------------------------|
 | `install.sh`            | **Required.** Your one-time post-deploy hook.              |
 | `update.sh`             | Optional. Re-apply your layer after each base update.      |
-| `lib/common.sh`         | Shared helpers (`install_panel_theme`, `apply_brand_voice`, …). |
+| `lib/common.sh`         | Shared helpers (`install_panel_theme`, `apply_brand_voice`, `install_skill_overlay`, …). |
 | `theme/theme.css`       | Panel theme — CSS variables + custom rules.                |
 | `theme/theme.js`        | Optional small JS hooks for the panel.                     |
-| `persona/brand_layer.md`| Short brand-voice overlay (recommended persona path).      |
+| `persona/brand_layer.md`| Short brand-voice overlay — **merged into the agent's `SOUL.md`** (recommended persona path). |
 | `persona/soul.full.md`  | Optional full persona replacement (advanced).             |
+| `skills/`               | Your own / overriding Hermes skills — each `<name>/SKILL.md` is added to the agent's skill index. |
 | `preview/index.html`    | Local preview of your theme.                               |
 | `docs/`                 | The contract, theming, persona, and publishing guides.    |
 | `tests/`                | Local sanity checks (`bash -n`, shellcheck, persona rules).|

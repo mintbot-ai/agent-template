@@ -78,6 +78,51 @@ apply_brand_voice() {
   esac
 }
 
+# ── Extra / overridden Hermes skills (your own layer) ────────────────
+# Ship the skill directories under skills/ in THIS repo into the agent's
+# skill tree. Each skills/<name>/SKILL.md becomes
+# $HERMES_HOME/skills/<name>/SKILL.md — Hermes rglob's that path, loads
+# every SKILL.md it finds, and advertises each by its frontmatter
+# `name` + `description` in the always-present skill index, opening the
+# full body on demand.
+#
+# This is YOUR layer on top of the base skills the platform ships. Use it
+# to:
+#   • ADD a skill the base agent doesn't have — e.g. your own product
+#     docs, your support/returns process, a domain workflow. (White-label
+#     agents don't get the platform's own docs skill, so shipping your
+#     product-docs skill here is the recommended way to fill that gap —
+#     see skills/product-docs/ for a ready example.)
+#   • OVERRIDE a base skill by reusing its directory name — your file is
+#     copied on top after the base skills are in place, so yours wins.
+#
+# The base update re-ships the base skill tree, so this MUST also run from
+# update.sh (it does) to re-apply your additions and overrides.
+install_skill_overlay() {
+  local src_root="$CUSTOMIZATION_DIR/skills"
+  if [ ! -d "$src_root" ]; then
+    log "no skills/ dir — no skill overlay to apply."
+    return 0
+  fi
+  if [ -z "${HERMES_HOME:-}" ] || [ ! -d "$HERMES_HOME" ]; then
+    log "HERMES_HOME not found (${HERMES_HOME:-unset}) — skipping skill overlay."
+    return 0
+  fi
+  local count=0 dir name
+  for dir in "$src_root"/*/; do
+    [ -d "$dir" ] || continue                      # no subdirs → glob stays literal
+    name="$(basename "$dir")"
+    if [ ! -s "${dir}SKILL.md" ]; then
+      log "skipping skill '$name' — no SKILL.md."
+      continue
+    fi
+    install -D -m 0644 "${dir}SKILL.md" "$HERMES_HOME/skills/$name/SKILL.md"
+    log "installed skill -> skills/$name/SKILL.md"
+    count=$((count + 1))
+  done
+  log "skill overlay applied ($count skill(s))."
+}
+
 # ── Full persona replacement (advanced) ──────────────────────────────
 # Replace the ENTIRE agent persona (not just an overlay) with your own
 # SOUL written in persona/soul.full.md. This writes the central-managed

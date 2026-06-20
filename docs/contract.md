@@ -50,9 +50,32 @@ customization needs a secret, fetch it yourself (e.g. from your own vault).
 | `$MINTBOT_PANEL_DIR/assets/js/theme.js`      | Panel theme JS hook.                        |
 | `$HERMES_HOME/SOUL.base.md`                  | Central-managed persona (overwritten on update). |
 | `$HERMES_HOME/SOUL.local.md`                 | Your additive persona overlay (survives updates). |
+| `$HERMES_HOME/skills/<name>/SKILL.md`        | A Hermes skill the agent indexes and reads on demand. |
 | `/opt/mintbot-agent/local-api`               | The local-api install (owns the persona CLI). |
 | `/var/log/mintbot-customization.log`         | Where your scripts' stdout/stderr is captured. |
 | `/var/lib/mintbot-agent/customization-state.json` | Run audit: commit, exit codes, fail count. |
+
+## Your two layers: persona and skills
+
+Your customization sits on top of a brand-neutral base. For a white-label
+agent the platform strips its own brand from the base persona and base
+skills — you supply yours:
+
+- **Persona.** `persona/brand_layer.md` is **merged into the agent's live
+  `SOUL.md`**: `apply_brand_voice` feeds it through the agent's persona CLI,
+  which writes `SOUL.local.md` (your additive overlay) and rebuilds
+  `SOUL.md` from base + overlay. `SOUL.local.md` survives base updates, so
+  `install.sh` alone is enough; `update.sh` re-applies it as a belt-and-
+  braces. For a full takeover, `apply_full_persona` writes `SOUL.base.md`
+  directly (and MUST run from `update.sh`, since the base update overwrites
+  it). See [`persona.md`](persona.md).
+- **Skills.** Every `skills/<name>/SKILL.md` in your repo is copied to
+  `$HERMES_HOME/skills/<name>/SKILL.md` by `install_skill_overlay` — adding
+  a new skill or, by reusing a base skill's name, overriding one. A
+  white-label agent doesn't get the platform's own docs skill, so shipping
+  your own `product-docs` skill is the recommended way to point the agent at
+  *your* documentation. Runs from both `install.sh` and `update.sh` (the
+  base update re-ships the base skill tree, so overrides must be re-applied).
 
 ## Rules of the road
 

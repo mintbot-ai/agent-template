@@ -27,19 +27,22 @@ log "install starting (agent=${AGENT_ID:-?}, domain=${BRAND_DOMAIN:-?})."
 install_panel_theme
 
 # 2) Brand voice (additive overlay — the recommended persona path).
+#    This MERGES persona/brand_layer.md into the agent's SOUL.md (via the
+#    SOUL.local.md overlay) — your repo's contribution to the live persona.
 apply_brand_voice
 
-# 3) Full persona replacement (advanced) — uncomment HERE and in
+# 3) Your own / overriding Hermes skills (skills/<name>/SKILL.md).
+#    Adds your skills to the agent's index; also fills the docs-skill gap
+#    white-label agents have. See skills/product-docs/ for an example.
+install_skill_overlay
+
+# 4) Full persona replacement (advanced) — uncomment HERE and in
 #    update.sh, then put your SOUL in persona/soul.full.md.
 # apply_full_persona
 
 # ── Add your own steps below ─────────────────────────────────────────
 # Everything runs as root on your VPS. Use the contract env vars for
 # paths. A few ideas:
-#
-#   • Ship an extra Hermes skill the agent should always have:
-#       install -D -m 0644 "$CUSTOMIZATION_DIR/skills/my-skill/SKILL.md" \
-#         "$HERMES_HOME/skills/my-skill/SKILL.md"
 #
 #   • Drop in seed data / config:
 #       install -D -m 0644 "$CUSTOMIZATION_DIR/data/catalog.json" \

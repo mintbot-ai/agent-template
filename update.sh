@@ -25,8 +25,13 @@ log "update starting (agent=${AGENT_ID:-?}, domain=${BRAND_DOMAIN:-?})."
 # Re-apply the panel theme — the base update replaces the panel dir.
 install_panel_theme
 
-# Self-healing re-apply of the brand voice overlay.
+# Self-healing re-apply of the brand voice overlay (merges brand_layer.md
+# back into SOUL.md via SOUL.local.md).
 apply_brand_voice
+
+# Re-apply your own / overriding skills — the base update re-ships the
+# base skill tree, so your additions and overrides must be re-installed.
+install_skill_overlay
 
 # If you use the full persona replacement, you MUST re-apply it here too:
 # the base update overwrites SOUL.base.md, and this runs right after, so
