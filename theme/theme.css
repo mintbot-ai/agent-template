@@ -6,10 +6,10 @@
  * properties for almost everything — try the variables below first
  * before adding bespoke rules.
  *
- * Whitelist (enforced by tests/ and at deploy time):
- *   - No @import of external URLs (http:// or https://).
- *   - No url() pointing to off-site hosts.
- *   - File size kept under 64 KB.
+ * install.sh copies this into the panel as the LAST stylesheet, so your
+ * overrides win. It's served from your own VPS — keep it lean and prefer
+ * self-hosted/inlined assets over external URLs (your users' privacy and
+ * page-load are yours to own now). See docs/theming.md.
  * ────────────────────────────────────────────────────────────────── */
 
 :root {

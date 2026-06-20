@@ -1,87 +1,83 @@
-# mintbot-ai / agent-template
+# agent-template
 
-> Your white-label agent's look and feel — fork, customise, deploy via [MintOffice](https://mint.mintbot.ai/).
+> Your white-label agent's customization repo — fork it, edit two scripts,
+> point MintOffice at it, and your agent installs your customization itself.
 
-This is the **starting point** for theming a white-label agent panel.
-Fork it, edit a couple of CSS variables, drop the public URL of your
-fork into MintOffice, and mintbot will pull your theme onto your
-agent the next time it deploys.
+This repo is the **starting point** for customizing a white-label agent.
+You fork it, put a public GitHub URL into MintOffice, and from then on the
+customization runs **on your own agent's server** — never on the platform's
+central infrastructure.
 
 ```
-┌─ Your fork ────────────┐    ┌─ MintOffice ─────────┐    ┌─ Your agent ─────────────┐
-│ github.com/me/         │ →  │  Onboarding form     │ →  │ agent123.yourdomain.com  │
-│   my-agent-skin        │    │  "Template repo URL" │    │ uses your theme.css      │
-└────────────────────────┘    └──────────────────────┘    └──────────────────────────┘
+┌─ Your fork ────────────┐    ┌─ MintOffice ─────────┐    ┌─ Your agent's VPS ───────────┐
+│ github.com/me/         │ →  │  Customization repo  │ →  │ clones your repo, then runs  │
+│   my-agent             │    │  URL field           │    │ install.sh (once) /          │
+└────────────────────────┘    └──────────────────────┘    │ update.sh (after each update)│
+                                                           └──────────────────────────────┘
 ```
+
+## How it works
+
+When your agent deploys, the platform sets up the base agent exactly as
+usual, then — on **your agent's own server** — clones this repo and runs:
+
+| Script       | Runs                                              |
+|--------------|---------------------------------------------------|
+| `install.sh` | **once**, after the deploy finishes and the agent is healthy |
+| `update.sh`  | after **every** base-package update, once the new base is live |
+
+The order is always **base first, your customization second** — so your
+layer sits on top of a known-good agent. Your scripts run as root on your
+own VPS. **The central platform never executes a byte of this repo** — it
+only hands the validated URL to your server. That means you can do anything
+your server can do: install OS packages, ship extra skills, replace the
+persona, seed data, call your own APIs.
+
+> Safety net: a missing, broken, or slow script is **isolated** — it can
+> never break the agent or block a future update. Your customization just
+> won't apply, and the reason is logged on the box. Keep your scripts
+> **idempotent** and test them.
 
 ## Quick start
 
-1. Click **Use this template** (or `git clone` then `rm -rf .git && git init`).
-2. Open `theme/theme.css` and change the colours under `:root`.
-3. Open `theme/theme.json` and set `name`, `author`, `description`.
-4. (Optional) Open `theme/theme.js` to add tiny behavioural tweaks.
-5. Open `persona/system_prompt.md.j2` and search-replace `ExampleAI` for your brand name (and skim the rest — it's a full working persona).
-6. Open `preview/index.html` in your browser to see the result.
-7. `git push` to your public GitHub repo — CI must be green.
-8. Paste the repo URL into your [MintOffice](https://mint.mintbot.ai/) onboarding form.
+1. Click **Use this template** (or `git clone`, then `rm -rf .git && git init`).
+2. Edit `theme/theme.css` — change the colors under `:root`.
+3. Edit `persona/brand_layer.md` — your brand's voice & tone.
+4. Open `preview/index.html` in your browser to check the theme.
+5. (Optional) Add your own steps at the bottom of `install.sh`.
+6. `git push` to a **public** GitHub repo — CI should be green.
+7. Paste the repo URL into the **Customization repo** field in
+   [MintOffice](https://mint.mintbot.ai/), then deploy.
 
-## What you can change
+## What's in here
 
-| File              | Purpose | Required? |
-|-------------------|---------|-----------|
-| `theme/theme.css` | CSS variables + custom rules — the bulk of your theme. | Yes |
-| `theme/theme.json`| Metadata (name, version, author, entry paths).         | Yes |
-| `theme/theme.js`  | Small JS hooks. Leave the file empty if not needed.    | Optional |
-| `persona/system_prompt.md.j2` | **Full** brand persona Jinja template — replaces the bundled mintbot agent persona end-to-end (brand name, service policy, upgrade flow, …). The shipped file is a working ExampleAI example — search-and-replace for your brand. | Optional but recommended |
-| `persona/brand_layer.md` | **Short** voice & tone overlay appended at the very end of the prompt. Use this if `system_prompt.md.j2` already carries your brand and you only want to nudge tone. | Optional |
-| `preview/index.html` | Local preview of how the panel looks.               | Editable |
-
-### Two persona files — when to use which
-
-- **Want full white-label** (no "mintbot" leaking into your agent's voice)? Edit `persona/system_prompt.md.j2`. It replaces the bundled persona completely. The shipped example uses **ExampleAI** as the brand — search-and-replace, push, deploy.
-- **Want just a tone overlay** (keep the upstream persona but add a brand voice)? Edit `persona/brand_layer.md`. It's appended at the end of the rendered prompt.
-- **Want both?** That works too — `system_prompt.md.j2` is rendered first, then `brand_layer.md` is appended as a final overlay.
-
-Inside `system_prompt.md.j2` you get three Jinja variables at deploy time:
-
-```
-{{ agent_id }}            # int, e.g. 8061
-{{ panel_domain_base }}   # str, your apex (e.g. "exampleai.com")
-{{ bot_handle }}          # str, the Telegram bot handle ("@…")
-```
-
-**Do not** add server-side code, binaries, large media files, or files
-outside the whitelist — mintbot will reject the deploy. See
-`tests/test_whitelist.py` for the exact allow-list.
-
-## What runs at deploy time
-
-When you (re)deploy your agent through MintOffice, mintbot:
-
-1. `git pull`s your fork at `main`.
-2. Runs every test in `tests/` — must pass.
-3. Re-runs the whitelist check independently (defence in depth).
-4. Copies the matching files into `/opt/mintbot/agent_templates/<your-agent>/web_panel/`.
-5. Triggers `panel_sync` so the change is live in seconds.
-
-If any step fails the agent keeps its previous theme — you get a
-notification with the reason. Your existing setup is never broken
-by a bad push to the template repo.
+| Path                    | Purpose                                                    |
+|-------------------------|------------------------------------------------------------|
+| `install.sh`            | **Required.** Your one-time post-deploy hook.              |
+| `update.sh`             | Optional. Re-apply your layer after each base update.      |
+| `lib/common.sh`         | Shared helpers (`install_panel_theme`, `apply_brand_voice`, …). |
+| `theme/theme.css`       | Panel theme — CSS variables + custom rules.                |
+| `theme/theme.js`        | Optional small JS hooks for the panel.                     |
+| `persona/brand_layer.md`| Short brand-voice overlay (recommended persona path).      |
+| `persona/soul.full.md`  | Optional full persona replacement (advanced).             |
+| `preview/index.html`    | Local preview of your theme.                               |
+| `docs/`                 | The contract, theming, persona, and publishing guides.    |
+| `tests/`                | Local sanity checks (`bash -n`, shellcheck, persona rules).|
 
 ## Documentation
 
-- [`docs/customizing.md`](docs/customizing.md) — every CSS variable explained.
-- [`docs/publishing.md`](docs/publishing.md) — registering your fork with MintOffice.
-- [`docs/reference.md`](docs/reference.md) — the JS hook surface and template contract.
-- [`tests/README.md`](tests/README.md) — what each whitelist test enforces.
+- [`docs/contract.md`](docs/contract.md) — the exact environment, paths, and lifecycle your scripts run under. **Start here.**
+- [`docs/theming.md`](docs/theming.md) — every panel CSS variable explained.
+- [`docs/persona.md`](docs/persona.md) — brand voice overlay vs. full persona replacement.
+- [`docs/publishing.md`](docs/publishing.md) — registering your repo with MintOffice.
 
 ## Versioning
 
-mintbot tracks your fork's `main` branch. Every push to `main` becomes
-the new template for your agent at next deploy. There is no "publish"
-step — `main` *is* what's live, so keep it green.
+MintOffice tracks your repo's default branch. The agent re-clones it fresh
+each time it runs `install.sh` / `update.sh`, so the latest commit is what
+applies — there is no separate "publish" step. Keep your default branch
+green.
 
 ## License
 
-MIT — see [`LICENSE`](LICENSE). You may use, modify, and ship this
-template freely.
+MIT — see [`LICENSE`](LICENSE). Use, modify, and ship freely.

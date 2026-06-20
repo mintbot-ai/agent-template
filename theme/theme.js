@@ -3,16 +3,13 @@
  *
  * This file is OPTIONAL — you can delete it if you only want CSS changes.
  *
- * Whitelist (enforced by tests/ and at deploy time):
- *   - No external script loading (no dynamic imports from URLs, no
- *     script-tag injection pointing off-site).
- *   - No runtime code evaluation (the eval and Function-constructor APIs
- *     are forbidden, as are dynamic import expressions).
- *   - No legacy document.write-style mutation.
- *   - File size kept under 32 KB.
+ * install.sh copies it into the panel; it runs in your users' browsers, so
+ * keep it small and self-contained. Avoid loading remote scripts — that's a
+ * privacy and reliability dependency you now own. Guard everything behind
+ * `mintbot.onReady(...)`.
  *
  * The base panel exposes a small global named `mintbot` with a few hooks.
- * The contract is intentionally tiny so we can keep it stable.
+ * The contract is intentionally tiny so it stays stable.
  * ────────────────────────────────────────────────────────────────── */
 
 (() => {
